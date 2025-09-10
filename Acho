@@ -1,0 +1,126 @@
+-- Carregando a OrionLib
+local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/jensonhirst/Orion/main/source"))()
+
+-- Criando a janela principal com nome "Luiz Hub"
+local Window = OrionLib:MakeWindow({
+	Name = "Luiz Hub",
+	HidePremium = false,
+	SaveConfig = true,
+	ConfigFolder = "OrionTest"
+})
+
+-- Criando uma aba
+local Tab = Window:MakeTab({
+	Name = "Tab 1",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+-- Adicionando uma seção
+local Section = Tab:AddSection({
+	Name = "Section"
+})
+
+-- Notificação ao iniciar
+OrionLib:MakeNotification({
+	Name = "Bem-vindo!",
+	Content = "Obrigado por usar o Luiz Hub!",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+
+-- Botão
+Tab:AddButton({
+	Name = "Button!",
+	Callback = function()
+		print("button pressed")
+	end    
+})
+
+-- Toggle com controle via variável
+local CoolToggle = Tab:AddToggle({
+	Name = "This is a toggle!",
+	Default = false,
+	Callback = function(Value)
+		print("Toggle:", Value)
+	end    
+})
+CoolToggle:Set(true)
+
+-- ColorPicker
+local ColorPicker = Tab:AddColorpicker({
+	Name = "Colorpicker",
+	Default = Color3.fromRGB(255, 0, 0),
+	Callback = function(Value)
+		print("ColorPicker:", Value)
+	end	  
+})
+ColorPicker:Set(Color3.fromRGB(255,255,255))
+
+-- Slider
+local Slider = Tab:AddSlider({
+	Name = "Slider",
+	Min = 0,
+	Max = 20,
+	Default = 5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "bananas",
+	Callback = function(Value)
+		print("Slider:", Value)
+	end    
+})
+Slider:Set(2)
+
+-- Label
+local CoolLabel = Tab:AddLabel("Label")
+CoolLabel:Set("Label New!")
+
+-- Parágrafo
+local CoolParagraph = Tab:AddParagraph("Paragraph", "Paragraph Content")
+CoolParagraph:Set("Paragraph New!", "New Paragraph Content!")
+
+-- TextBox
+Tab:AddTextbox({
+	Name = "Textbox",
+	Default = "default box input",
+	TextDisappear = true,
+	Callback = function(Value)
+		print("Textbox:", Value)
+	end	  
+})
+
+-- Bind
+local Bind = Tab:AddBind({
+	Name = "Bind",
+	Default = Enum.KeyCode.E,
+	Hold = false,
+	Callback = function()
+		print("Key pressed")
+	end    
+})
+Bind:Set(Enum.KeyCode.E)
+
+-- Dropdown
+local Dropdown = Tab:AddDropdown({
+	Name = "Dropdown",
+	Default = "1",
+	Options = {"1", "2"},
+	Callback = function(Value)
+		print("Dropdown:", Value)
+	end    
+})
+Dropdown:Refresh({"1", "2", "3"}, true)
+Dropdown:Set("2")
+
+-- Toggle com Flag (usado com OrionLib.Flags)
+Tab:AddToggle({
+	Name = "Toggle",
+	Default = true,
+	Save = true,
+	Flag = "toggle"
+})
+print("Flag Toggle Value:", OrionLib.Flags["toggle"].Value)
+
+-- Inicializa a UI
+OrionLib:Init()
